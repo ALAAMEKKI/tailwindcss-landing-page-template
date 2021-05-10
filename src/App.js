@@ -10,7 +10,7 @@ function App() {
   return (
     <Switch>
     <Route path="/">
-    <LandingPageLayout>
+    <LandingPageLayout heading="999dice scripts">
       <HomePage/>
     </LandingPageLayout>
     </Route>
