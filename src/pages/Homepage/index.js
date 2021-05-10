@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
+import Cards from "../../components/Cards/index";
 
-function HomePage({...otherProps }) {
-    return (
-        <div>
-            
-        </div>
-    )
+function HomePage({ ...otherProps }) {
+  return <Cards />;
 }
 
-export default HomePage
+export default HomePage;

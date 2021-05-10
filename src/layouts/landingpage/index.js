@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../../components/Header/index";
-import Hero from "../../assets/win1.jpg";
+import Dice from "../../assets/win1.jpg";
+import Footer from "../../components/Footer/index";
 
 export default function LandingPageLayout({ heading, ...otherProps }) {
   return (
@@ -11,7 +12,7 @@ export default function LandingPageLayout({ heading, ...otherProps }) {
         <div
           className=" relative flex items-center justify-center h-full bg-cover bg-center bg-fixed bg-no-repeat"
           style={{
-            backgroundImage: `url(${Hero})`,
+            backgroundImage: `url(${Dice})`,
           }}
         >
           {heading && (
@@ -23,7 +24,9 @@ export default function LandingPageLayout({ heading, ...otherProps }) {
           <div className="z-0 absolute -top-0 -left-0 h-full w-full bg-black opacity-40" />
         </div>
       </div>
-      <div className="w-full max-w-7xl mx-auto">{otherProps.children}</div>drgdr
+      <div className="w-full max-w-7xl mx-auto">{otherProps.children}</div>
+
+      <Footer />
     </div>
   );
 }
