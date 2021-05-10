@@ -23,9 +23,7 @@ export default function LandingPageLayout({ heading, ...otherProps }) {
           <div className="z-0 absolute -top-0 -left-0 h-full w-full bg-black opacity-40" />
         </div>
       </div>
-
-      <div
-      className="w-full max-w-7xl mx-auto">{otherProps.children}</div>
+      <div className="w-full max-w-7xl mx-auto">{otherProps.children}</div>drgdr
     </div>
   );
 }
