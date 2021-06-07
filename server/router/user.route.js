@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../model/user.model");
+const axios = require("axios"); 
 
 /*
 const coinbase = require('coinbase-commerce-node');
@@ -31,42 +32,46 @@ const coinbaseSecret = "2534c9ad-67b7-469b-b08c-2d96704b1087";
 const sharedSecret = "6f75edd5-a5e5-475b-bd66-f9e64942021b";
 const Webhook = require("coinbase-commerce-node").Webhook;
 
+
+
 Client.init(coinbaseSecret);
 
 const { Charge } = resources;
 
-router.get("/pay", (req, res) => {
+router.get("https://us-central1-coinbase-cloud-functions.cloudfunctions.net/createCharge", (req, res) => {
   cors(req, res, async () => {
     // TODO get real product data from database
 
     const chargeData = {
-      name: "Widget",
-      description: "Useless widget created by Fireship",
+      name: "999",
+      description: "script",
       local_price: {
-        amount: 9.99,
+        amount: 1,
         currency: "USD",
       },
       pricing_type: "fixed_price",
-      metadata: {
-        user: "jeffd23",
-      },
+      // metadata: {
+      //   user: "jeffd23",
+      // },
     };
 
     const charge = await Charge.create(chargeData);
-    console.log("thischargeee", charge);
+    console.log("thischargeee", charge.id);
 
     res.send(charge);
   });
 });
 
 
-router.post("/v" , (req,res)=> {
- const rawBody = req.rawBody;
+router.post("https://us-central1-coinbase-cloud-functions.cloudfunctions.net/webhookHandler" , (req,res)=> {
+console.log("req",req.body);
+
+const rawBody = req.rawBody;
   const signature = req.headers['x-cc-webhook-signature'];
 
   try {
     const event = Webhook.verifyEventBody(rawBody, signature, sharedSecret);
-    consile.log(event)
+    consile.log(event)  
 
     if (event.type === 'charge:pending') {
       // TODO
@@ -95,7 +100,35 @@ router.post("/v" , (req,res)=> {
 
 
 
+router.get("/events", async (req, res) => {
+  try {
+    const data = await axios.get(
+      `https://api.commerce.coinbase.com/events`,
+      {
+        headers: {
+          "X-CC-Api-Key": coinbaseSecret,
+          "X-CC-Version": "2018-03-22"
+        },
+      }
+    );
+    let eventLatest = data.data.data[0]
+    console.log("fucking events",eventLatest);
+    
+    res.send(eventLatest);
+  } catch (err) {
+    console.log(err);
+  }
+});
 
+
+
+router.get("/charge",(req,res)=>{
+
+  Charge.retrieve("1f4aaa18-c55e-42ca-8399-9ab27857f18d", function (error, response) {
+    console.log(error);
+    console.log("retrived",response);
+  });
+})
 
 
 

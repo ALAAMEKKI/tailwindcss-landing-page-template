@@ -1,4 +1,4 @@
-import React from "react";
+import React  , { useEffect } from "react";
 import Photo from "../../assets/win5.jpg";
 import CoinbaseCommerceButton from 'react-coinbase-commerce';
 import 'react-coinbase-commerce/dist/coinbase-commerce-button.css';
@@ -6,14 +6,19 @@ import axios from "axios"
 
 const Card = ({ ...otherProps }) => {
 
-  const onClick =  async(e)=> {
-    e.preventDefault()
-   const res = await axios.get("http://localhost:3001/pay")
+  const onClick =  async ()=> {
+   
+   const res = await axios.get("http://localhost:3001/createCharge")
    
 
    console.log('thischarge',res);
   
   }
+
+  useEffect(() => {
+    onClick()
+    
+  }, [])
 
   return (
     <div className="flex flex-row flex-wrap py-14 jsutify-center">
@@ -63,8 +68,9 @@ const Card = ({ ...otherProps }) => {
         </div>
       </div>
       <CoinbaseCommerceButton className="bg-gray-700 text-base text-white rounded px-8 py-4" checkoutId={'d8642be6-37df-4ae6-8eaf-04c3e39130bc'}/>
-      <CoinbaseCommerceButton onClick={onClick} className="bg-gray-700 text-base text-gray rounded px-8 py-4" checkoutId={'a1a069ad-ceba-4e95-9e80-890938280ab2'}/>
-    
+      <a onClick={onClick}>
+      <CoinbaseCommerceButton  className="bg-gray-700 text-base text-gray rounded px-8 py-4" checkoutId={'a1a069ad-ceba-4e95-9e80-890938280ab2'}/>
+      </a>
       <div>
   <a 
   onClick={onClick} 
